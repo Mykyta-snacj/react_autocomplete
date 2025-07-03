@@ -35,6 +35,22 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
+const noSuggestions = (
+  <div
+    className="
+      notification
+      is-danger
+      is-light
+      mt-3
+      is-align-self-flex-start
+    "
+    role="alert"
+    data-cy="no-suggestions-message"
+  >
+    <p className="has-text-danger">No matching suggestions</p>
+  </div>
+);
+
 export const App: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, {
     hasFocus: false,
@@ -121,21 +137,7 @@ export const App: React.FC = () => {
             )}
           </div>
         </div>
-        {filteredPeople.length === 0 && (
-          <div
-            className="
-            notification
-            is-danger
-            is-light
-            mt-3
-            is-align-self-flex-start
-          "
-            role="alert"
-            data-cy="no-suggestions-message"
-          >
-            <p className="has-text-danger">No matching suggestions</p>
-          </div>
-        )}
+        {filteredPeople.length === 0 && state.hasFocus && noSuggestions}
       </main>
     </div>
   );
